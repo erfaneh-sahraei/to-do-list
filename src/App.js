@@ -11,8 +11,8 @@ function App() {
 
   // Tasks (ToDo List) State
 const [toDo, setToDo]= useState([
-  // {"id":1, "title":"Task 1" , "status":false},
-  // {"id":2, "title":"Task 2" , "status":false},
+  {"id":1, "title":"Task 1" , "status":false},
+  {"id":2, "title":"Task 2" , "status":false},
 ]);
 
 // Temp State
@@ -53,10 +53,17 @@ const updateTask=()=>{
   return (
     <div className="container App">
       <br/><br/>
-      <h2>To Do List App(ReactJS)</h2>
+      <h2>لیست کارهای من</h2>
       <br/><br/>
       {/*Display ToDos*/}
-      {toDo && toDo.length ? '' : 'Not Tasks...'}
+      {toDo && toDo.length ? '' : '!ایول کاری نداری'}
+      {toDo && toDo.map((task , index) =>{
+        return (
+          <React.Fragment>
+            <span className='taskText'>{task.title}</span>
+          </React.Fragment>
+        )
+      })}
     </div>
   );
 }
