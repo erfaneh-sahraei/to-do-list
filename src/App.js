@@ -59,8 +59,14 @@ const updateTask=()=>{
       {toDo && toDo.length ? '' : '!ایول کاری نداری'}
       {toDo && toDo.map((task , index) =>{
         return (
-          <React.Fragment>
+          <React.Fragment key={task.id}>
+            <div className='col taskBg'>
+              <div className={task.status ? 'done' : ''}>
+              <span className='taskNumber'>{index + 1}</span>
             <span className='taskText'>{task.title}</span>
+              </div>
+            </div>
+            
           </React.Fragment>
         )
       })}
