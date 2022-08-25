@@ -11,8 +11,8 @@ function App() {
 
   // Tasks (ToDo List) State
 const [toDo, setToDo]= useState([
-  {"id":1, "title":"Task 1" , "status":false},
-  {"id":2, "title":"Task 2" , "status":false},
+  {"id":1, "title":"کار شماره یک" , "status":false},
+  {"id":2, "title":"کار شماره دو" , "status":false},
 ]);
 
 // Temp State
@@ -57,13 +57,26 @@ const updateTask=()=>{
       <br/><br/>
       {/*Display ToDos*/}
       {toDo && toDo.length ? '' : '!ایول کاری نداری'}
-      {toDo && toDo.map((task , index) =>{
+      {toDo && toDo
+         .sort((a,b) => a.id > b.id ? 1 : -1)
+         .map((task , index) =>{
         return (
           <React.Fragment key={task.id}>
             <div className='col taskBg'>
               <div className={task.status ? 'done' : ''}>
               <span className='taskNumber'>{index + 1}</span>
             <span className='taskText'>{task.title}</span>
+              </div>
+              <div className='iconsWrap'>
+                <span title='Completed / Not Completed'>
+                  <FontAwesomeIcon icon={faCircleCheck}/>
+                </span>
+                <span title='Edit'>
+                <FontAwesomeIcon icon={faPen}/>
+                </span>
+                <span title='Delete'>
+                <FontAwesomeIcon icon={faTrashCan}/>
+                </span>
               </div>
             </div>
             
@@ -75,3 +88,5 @@ const updateTask=()=>{
 }
 
 export default App;
+
+

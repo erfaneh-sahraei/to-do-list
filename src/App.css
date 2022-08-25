@@ -1,6 +1,7 @@
 body{
   background-color: #333;
   color: #fff;
+  direction: rtl;
 }
 .App {
   text-align: center;
@@ -23,7 +24,6 @@ body{
   width: 26px;
   height: 26px;
   display: flex;
-  flex-direction: row-reverse;
   align-items: center;
   font-size: 14px;
   margin-left: 8px;
@@ -31,7 +31,43 @@ body{
   justify-content: center;
 }
 
+.taskBg div {
+ display: flex;
+ align-items: center;
+}
+
+.taskBg .taskText{
+   flex: 1;
+}
+
 .taskBg .done .taskText{
   text-decoration: line-through;
   opacity: 0.3;
+  flex: 1;
 }
+
+.iconsWrap{
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 15px;
+  width: auto;
+  display: inline-block;
+}
+
+.taskBg .iconsWrap span {
+  display: inline-block;
+  margin: 0px 10px 0px 10px;
+  cursor: pointer;
+  color: #00ff89;
+}
+
+
+.taskBg .iconsWrap span:hover{
+  color: yellow;
+}
+
+.marginRight{
+  margin-right: 20px;
+}
+
