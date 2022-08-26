@@ -21,7 +21,12 @@ const [updateData , setUpdateData] = useState('');
 
 //Add task
 const addTask=()=>{
-  //
+  if(newTask){
+    let num =toDo.length + 1;
+    let newEntry = {id: num , title:newTask , status :false}
+    setToDo([...toDo, newEntry])
+    setNewTask('');
+  }
 }
 
 //Delete task
@@ -75,10 +80,15 @@ const updateTask=()=>{
 {/* Add Task */}
 <div className='row'>
   <div className='col'>
-    <input className='form-control form-control-lg'/>
+    <input 
+    value={newTask}
+    onChange={(e) => {setNewTask(e.target.value)}}
+    className='form-control form-control-lg'/>
   </div>
   <div className='col'>
-    <button className='btn btn-lg btn-success marginRight'>
+    <button 
+    onClick={addTask}
+    className='btn btn-lg btn-success marginRight'>
       اضافه کردن کار
     </button>
   </div>
