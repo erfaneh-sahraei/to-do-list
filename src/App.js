@@ -30,8 +30,9 @@ const addTask=()=>{
 }
 
 //Delete task
-const deleteTask=()=>{
-  //
+const deleteTask=(id)=>{
+  let newTasks = toDo.filter(task => task.id !== id)
+  setToDo(newTasks);
 }
 
 //Mark task as done or completed
@@ -114,7 +115,9 @@ const updateTask=()=>{
                 <span title='Edit'>
                 <FontAwesomeIcon icon={faPen}/>
                 </span>
-                <span title='Delete'>
+                <span 
+                onClick={() => deleteTask(task.id)}
+                title='Delete'>
                 <FontAwesomeIcon icon={faTrashCan}/>
                 </span>
               </div>
