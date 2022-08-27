@@ -1,4 +1,8 @@
 import React, { useState } from 'react';
+import AddTaskForm from './components/AddTaskForm';
+import ToDo from './components/ToDo';
+import UpdateForm from './components/UpdateForm';
+
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
@@ -83,24 +87,13 @@ const updateTask=()=>{
     </div>
 </div>
 <br/>
+<AddTaskForm
+newTask={newTask}
+setNewTask={setNewTask}
+addTask ={addTask}
+/>
 
-{/* Add Task */}
-<div className='row'>
-  <div className='col'>
-    <input 
-    value={newTask}
-    onChange={(e) => {setNewTask(e.target.value)}}
-    className='form-control form-control-lg'/>
-  </div>
-  <div className='col'>
-    <button 
-    onClick={addTask}
-    className='btn btn-lg btn-success marginRight'>
-      اضافه کردن کار
-    </button>
-  </div>
-</div>
-<br/>
+
 
       {/*Display ToDos*/}
       {toDo && toDo.length ? '' : 'ایول کاری نداری'}
