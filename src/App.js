@@ -36,8 +36,14 @@ const deleteTask=(id)=>{
 }
 
 //Mark task as done or completed
-const markDone=(id)=>{
-  //
+const markDone = (id) => {
+  let newTask = toDo.map(task =>{
+    if(task.id === id){
+      return({...task , status: !task.status})
+    }
+    return task;
+  })
+  setToDo(newTask);
 }
 
 
@@ -97,7 +103,7 @@ const updateTask=()=>{
 <br/>
 
       {/*Display ToDos*/}
-      {toDo && toDo.length ? '' : '!ایول کاری نداری'}
+      {toDo && toDo.length ? '' : 'ایول کاری نداری'}
       {toDo && toDo
          .sort((a,b) => a.id > b.id ? 1 : -1)
          .map((task , index) =>{
@@ -109,12 +115,17 @@ const updateTask=()=>{
             <span className='taskText'>{task.title}</span>
               </div>
               <div className='iconsWrap'>
-                <span title='Completed / Not Completed'>
+                <span title='Completed / Not Completed'
+                onClick={(e) => {markDone(task.id)}}
+                >
                   <FontAwesomeIcon icon={faCircleCheck}/>
                 </span>
-                <span title='Edit'>
+                {task.status ? null : (
+                  <span title='Edit'>
                 <FontAwesomeIcon icon={faPen}/>
                 </span>
+                )}
+                
                 <span 
                 onClick={() => deleteTask(task.id)}
                 title='Delete'>
