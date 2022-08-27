@@ -1,23 +1,16 @@
-import React, { useState } from 'react';
-import AddTaskForm from './components/AddTaskForm';
-import ToDo from './components/ToDo';
-import UpdateForm from './components/UpdateForm';
+import { useState } from 'react';
+import AddTaskForm from './components/AddTaskForm.jsx';
+import ToDo from './components/ToDo.jsx';
+import UpdateForm from './components/UpdateForm.jsx';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {
-  faCircleCheck , faPen , faTrashCan
-} from '@fortawesome/free-solid-svg-icons'
 import './App.css';
 
 
 function App() {
 
   // Tasks (ToDo List) State
-const [toDo, setToDo]= useState([
-  {"id":1, "title":"کار شماره یک" , "status":false},
-  {"id":2, "title":"کار شماره دو" , "status":false},
-]);
+const [toDo, setToDo]= useState([]);
 
 // Temp State
 const [newTask , setNewTask] = useState('');
@@ -53,17 +46,26 @@ const markDone = (id) => {
 
 //Cancel update
 const cancelUpdate=()=>{
-  //
+  setUpdateData('');
 }
 
 //Change task for update
 const changeTask=(e)=>{
-  //
+  let newEntry = {
+    id:updateData.id ,
+    title: e.target.value ,
+    status:updateData.status ? true : false
+  }
+  setUpdateData(newEntry);
 }
 
 //Update task
 const updateTask=()=>{
-  //
+  let filterRecords = [...toDo].filter(task => task.id !== 
+    updateData.id);
+    let updatedObject = [...filterRecords,updateData]
+    setToDo(updatedObject);
+    setUpdateData('');
 }
 
   return (
@@ -72,64 +74,32 @@ const updateTask=()=>{
       <h2>لیست کارهای من</h2>
       <br/><br/>
 {/* Uppdate Task */}   
-
-<div className='row'>
-  <div className='col'>
-    <input className='form-control form-control-lg'/>
-  </div>
-  <div className='col-auto'>
-  <button className='btn btn-lg btn-success '>
-        آپدیت
-    </button>
-    <button className='btn btn-lg btn-warning '>
-        انصراف
-    </button>
-    </div>
-</div>
-<br/>
-<AddTaskForm
-newTask={newTask}
-setNewTask={setNewTask}
-addTask ={addTask}
+{updateData && updateData ? (
+<UpdateForm
+updateData={updateData}
+changeTask={changeTask}
+updateTask={updateTask}
+cancelUpdate={cancelUpdate}
 />
+) : (
 
+   <AddTaskForm
+  newTask={newTask}
+  setNewTask={setNewTask}
+  addTask ={addTask}
+/> 
+)}
+  
 
 
       {/*Display ToDos*/}
       {toDo && toDo.length ? '' : 'ایول کاری نداری'}
-      {toDo && toDo
-         .sort((a,b) => a.id > b.id ? 1 : -1)
-         .map((task , index) =>{
-        return (
-          <React.Fragment key={task.id}>
-            <div className='col taskBg'>
-              <div className={task.status ? 'done' : ''}>
-              <span className='taskNumber'>{index + 1}</span>
-            <span className='taskText'>{task.title}</span>
-              </div>
-              <div className='iconsWrap'>
-                <span title='Completed / Not Completed'
-                onClick={(e) => {markDone(task.id)}}
-                >
-                  <FontAwesomeIcon icon={faCircleCheck}/>
-                </span>
-                {task.status ? null : (
-                  <span title='Edit'>
-                <FontAwesomeIcon icon={faPen}/>
-                </span>
-                )}
-                
-                <span 
-                onClick={() => deleteTask(task.id)}
-                title='Delete'>
-                <FontAwesomeIcon icon={faTrashCan}/>
-                </span>
-              </div>
-            </div>
-            
-          </React.Fragment>
-        )
-      })}
+        <ToDo
+        toDo = {toDo}
+        markDone ={markDone}
+        setUpdateData={setUpdateData} 
+        deleteTask={deleteTask}
+        />
     </div>
   );
 }

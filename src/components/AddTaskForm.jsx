@@ -1,4 +1,4 @@
-const AddTaskForm = ({ newTask,setNewTask,addTask }) =>{
+const AddTaskForm = ({ newTask, setNewTask, addTask }) =>{
   return (
 <>
 {/* Add Task */}
